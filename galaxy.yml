@@ -1,0 +1,39 @@
+namespace: janleshy
+
+name: homeassistant
+
+version: 1.0.0
+
+readme: README.md
+
+authors:
+  - Jan Roepke (JanLeshy)
+
+description: A Collection to install and manage homeassistant and additional software like ESPHome
+
+license_file: LICENSE
+
+tags:
+  - homeassistant
+  - automation
+  - hass
+  - esphome
+  - homeautomation
+  - iot
+  - esp32
+  - esp8266
+
+
+dependencies: {}
+
+repository: https://github.com/janleshy/ansible-collection-homeassistant
+
+documentation: https://github.com/janleshy/ansible-collection-homeassistant/blob/main/README.md
+
+homepage: https://github.com/janleshy/ansible-collection-homeassistant
+
+issues: https://github.com/janleshy/ansible-collection-homeassistant/issues
+
+build_ignore: []
+
+
