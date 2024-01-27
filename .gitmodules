@@ -3,3 +3,7 @@
 	path = roles/esphome
 	url = git@github.com:JanLeshy/ansible-role-esphome.git
 	branch = main
+[submodule "roles/homeassistant"]
+	path = roles/homeassistant
+	url = git@github.com:JanLeshy/ansible-role-homeassistant.git
+	branch = main
