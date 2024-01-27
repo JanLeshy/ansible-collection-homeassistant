@@ -1,1 +1,5 @@
 
+[submodule "roles/esphome"]
+	path = roles/esphome
+	url = git@github.com:JanLeshy/ansible-role-esphome.git
+	branch = main
