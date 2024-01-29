@@ -7,6 +7,10 @@ This collection installs and configures Home Assistant and ESPHome, on a remote 
 * [homeassistant](https://github.com/JanLeshy/ansible-role-homeassistant) - Deploy and configure Home Assistant
 * [esphome](https://github.com/JanLeshy/ansible-role-esphome) - Deploy and configure ESPHome
 
+## Requirements
+
+Ansible v2.15 or newer must be installed, [official install instruction](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+
 ## Use the collection
 
 Install the collection from Ansible Galaxy:
