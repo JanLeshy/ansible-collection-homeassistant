@@ -22,7 +22,7 @@ tags:
   - iot
   - esp32
   - esp8266
-  - raspberry pi2.13.92.13.9
+  - raspberrypi
 
 
 dependencies: {}
