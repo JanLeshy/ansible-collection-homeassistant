@@ -4,8 +4,8 @@ This collection installs and configures Home Assistant and ESPHome, on a remote 
 
 ## Roles
 
-* [homeassistant](roles/homeassistant) - Deploy and configure Home Assistant
-* [esphome](roles/esphome) - Deploy and configure ESPHome
+* [homeassistant](roles/ansible-role-homeassistant) - Deploy and configure Home Assistant
+* [esphome](roles/ansible-role-esphome) - Deploy and configure ESPHome
 
 ## Requirements
 
