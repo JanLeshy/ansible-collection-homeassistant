@@ -1,0 +1,16 @@
+---
+- name: Install systemd unit file
+  ansible.builtin.template:
+    src: esphome.service.j2
+    dest: "/etc/systemd/system/esphome.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify: 
+  - "Restart ESP Home"
+
+- name: Enable service esphome.service for automatic boot start, and not touch the state
+  ansible.builtin.service:
+    name: esphome.service
+    enabled: yes
+

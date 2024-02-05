@@ -1,0 +1,14 @@
+[Unit]
+Description=ESP Home
+After=network.target
+
+[Service]
+Type=simple
+User={{ esphome_user }}
+WorkingDirectory={{ esphome_conf_dir }}
+ExecStart={{ esphome_conf_dir }}/bin/esphome dashboard /home/{{ esphome_user }}/esphome/config/
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

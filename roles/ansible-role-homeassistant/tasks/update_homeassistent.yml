@@ -1,0 +1,24 @@
+---
+- name: Stop running homeassistant service
+  ansible.builtin.command: echo "Stop Home Assistant"
+  notify: "Stop Home Assistant"
+
+- name: Install defined version of Home Assistant in virtual environment
+  ansible.builtin.pip:
+    name: homeassistant
+    version: "{{ ha_version }}"
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_site_packages: 1
+    virtualenv_command: /usr/bin/python3 -m venv
+  when: ha_version is defined
+  notify: "Start Home Assistant"
+
+- name: Install latest version of Home Assistant in virtual environment
+  ansible.builtin.pip:
+    name: homeassistant
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_command: /usr/bin/python3 -m venv
+    virtualenv_site_packages: 1
+    extra_args: "--upgrade"
+  notify: "Start Home Assistant"
+

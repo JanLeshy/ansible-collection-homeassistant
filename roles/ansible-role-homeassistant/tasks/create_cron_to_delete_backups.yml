@@ -1,0 +1,16 @@
+---
+- name: Copy delete_backups_job.j2 to homeassistant home directory
+  ansible.builtin.template:
+    src: delete_backups_job.j2
+    dest: "/home/{{ ha_user }}/.homeassistant/delete_backups_job.sh"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    mode: "0744"
+
+- name: Delete homeassistant backups after given days
+  ansible.builtin.cron:
+    name: "Delete homeassistant backups after given days"
+    minute: "0"
+    hour: "4"
+    job: "/home/{{ ha_user }}/.homeassistant/delete_backups_job.sh"
+  remote_user: "{{ ha_user }}"

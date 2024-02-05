@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: docker-debian12-ansible
+    image: geerlingguy/docker-debian12-ansible
+    pre_build_image: true
+    privileged: true
+    command: /lib/systemd/systemd
+    published_ports:
+      - 8123:8123
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+
+verifier:
+  name: ansible

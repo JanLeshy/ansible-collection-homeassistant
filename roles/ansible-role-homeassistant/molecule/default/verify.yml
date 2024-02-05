@@ -1,0 +1,21 @@
+---
+# This is an example playbook to execute Ansible tests.
+- name: Verify
+  hosts: all
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: Check if Home Assistant port is open
+    ansible.builtin.wait_for:
+      port: 8123
+      state: started
+      delay: 0
+      timeout: 300
+
+  - name: Verify homeassistant is serving web requests
+    ansible.builtin.uri:
+      url: http://localhost:8123
+      status_code: 200
+    retries: 10
+    delay: 6

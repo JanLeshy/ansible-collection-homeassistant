@@ -1,0 +1,18 @@
+---
+# handlers file for homeassistant role
+- name: Stop Home Assistant
+  ansible.builtin.systemd:
+    state: stopped
+    name: homeassistant.service
+
+- name: Start Home Assistant
+  ansible.builtin.systemd:
+    state: started
+    name: homeassistant.service
+    daemon_reload: true
+    enabled: true
+
+- name: Restart Home Assistant
+  ansible.builtin.systemd:
+    state: restarted
+    name: homeassistant.service

@@ -1,0 +1,27 @@
+---
+# defaults var file for homeassistant role
+
+# location of the config directory
+ha_conf_dir: /srv/homeassistant
+
+# The default user
+ha_user: homeassistant
+ha_group: homeassistant
+
+# homeassistant port for web access
+ha_port: 8123
+
+# delay in seconds before go ahead with check homeassistant is running, increase when installation failes or while a slow system or internet connection
+ha_check_delay: 25
+
+# python version
+ha_python: 3.11
+
+# create a cron job to delete backups
+ha_backup_cron: false
+
+# delete backup after given days
+ha_backup_delete_after_days: 7
+
+# keep defined backups files
+ha_backup_keepfiles: 3

@@ -1,0 +1,49 @@
+---
+- name: install dependencies
+  ansible.builtin.import_tasks: install_dependencies.yml
+  tags:
+      - homeassistant
+      - dependencies
+
+- name: Create user and dir
+  ansible.builtin.import_tasks: create_user_and_groups.yml
+  tags:
+      - homeassistant
+      - create_user
+
+- name: Create environment directory
+  ansible.builtin.import_tasks: create_environment_directory.yml
+  tags:
+      - homeassistant
+      - create_environment_directory
+
+- name: install homeassistent
+  ansible.builtin.import_tasks: installation_homeassistent.yml
+  tags:
+      - homeassistant
+      - installation
+
+- name: Update update_homeassistent
+  ansible.builtin.import_tasks: update_homeassistent.yml
+  tags:
+      - update_homeassistent
+
+- name: Restore from given backup file 
+  ansible.builtin.import_tasks: restore_from_backup.yml
+  tags:
+      - homeassistant
+      - restore_backup
+  when: ha_backup is defined
+
+- name: Create Service homeassistant service
+  ansible.builtin.import_tasks: create_service.yml
+  tags:
+      - homeassistant
+      - service
+
+- name: Create cron entry for delete backup,after "{{ ha_backup_delete_after_days }}" days
+  ansible.builtin.import_tasks: create_cron_to_delete_backups.yml
+  tags:
+      - homeassistant
+      - cron
+  when: ha_backup_cron | bool

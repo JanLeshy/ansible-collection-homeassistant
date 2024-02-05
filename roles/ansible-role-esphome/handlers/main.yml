@@ -1,0 +1,17 @@
+---
+- name: Stop ESP Home
+  ansible.builtin.systemd:
+    state: stopped
+    name: esphome.service
+
+- name: Start ESP Home
+  ansible.builtin.systemd:
+    state: started
+    name: esphome.service
+    daemon_reload: true
+    enabled: true
+
+- name: Restart ESP Home
+  ansible.builtin.systemd:
+    state: restarted
+    name: esphome.service
