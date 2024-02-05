@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+
+  - name: Import role homeassistant
+    ansible.builtin.include_role:
+      name: ansible_role_homeassistant
+    vars:
+      ha_backup_cron: true
+      ha_backup_delete_after_days: 7
+      ha_backup_keepfiles: 3
+

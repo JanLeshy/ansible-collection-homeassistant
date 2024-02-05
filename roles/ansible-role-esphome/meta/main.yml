@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Jan Roepke (JanLeshy)
+  description: This role installs esphome on a remote host
+  license: MIT
+  namespace: janleshy
+  role_name: ansible_role_esphome
+  min_ansible_version: "2.13.9" 
+
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+
+  galaxy_tags:
+    - esphome
+    - homeautomation
+    - automation
+    - admin
+    - iot
+    - esp32
+    - esp8266
+
+dependencies: []

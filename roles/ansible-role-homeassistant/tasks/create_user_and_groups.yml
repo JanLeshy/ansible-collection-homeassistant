@@ -1,0 +1,36 @@
+---
+- name: Create Groups homeassistant
+  ansible.builtin.group:
+    name: "{{ ha_group }}"
+    system: true
+
+- name: Create user and add to group
+  ansible.builtin.user:
+    name: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    comment: "Home Assistant"
+    createhome: true
+    system: true
+
+- name: Create additional dialout,gpio,i2c Groups
+  ansible.builtin.group:
+    name: "{{ item }}"
+    system: true
+  with_items:
+    - dialout
+    - gpio
+    - i2c
+  when: ansible_distribution == 'Raspbian'
+
+- name: Create additional dialout,gpio,i2c users for the rasperry Pi
+  ansible.builtin.user:
+    name: "{{ item }}"
+    group: "{{ item }}"
+    createhome: true
+    system: true
+    state: present
+  with_items:
+    - dialout
+    - gpio
+    - i2c
+  when: ansible_distribution == 'Raspbian'

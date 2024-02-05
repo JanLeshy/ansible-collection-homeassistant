@@ -1,0 +1,19 @@
+---
+- name: Create group ESPHome
+  ansible.builtin.group:
+    name: "{{ esphome_group }}"
+    system: true
+    state: present
+
+- name: Create user ESPHome
+  ansible.builtin.user:
+    name: "{{ esphome_user }}"
+    comment: "ESP Home"
+    group: "{{ esphome_group }}"
+    createhome: true
+    system: true
+
+
+
+
+

@@ -1,0 +1,32 @@
+---
+- name: Install required python modules (pre-install in virtual environment)
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_site_packages: 1
+    virtualenv_command: /usr/bin/python3 -m venv
+  remote_user: "{{ ha_user }}"
+  with_items:
+    - colorlog
+    - wheel
+
+- name: Install defined version of Home Assistant in virtual environment
+  ansible.builtin.pip:
+    name: homeassistant
+    version: "{{ ha_version }}"
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_site_packages: 1
+    virtualenv_command: /usr/bin/python3 -m venv
+  remote_user: "{{ ha_user }}"
+  when: ha_version is defined
+
+- name: Install latest version of Home Assistant in virtual environment
+  ansible.builtin.pip:
+    name: homeassistant
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_command: /usr/bin/python3 -m venv
+    virtualenv_site_packages: 1
+    extra_args: "--upgrade"
+  remote_user: "{{ ha_user }}"
+  when: ha_version is undefined
+

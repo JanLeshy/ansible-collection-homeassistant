@@ -1,0 +1,10 @@
+---
+# install directory
+esphome_conf_dir: /opt/esphome
+
+# default user
+esphome_user: esphome
+esphome_group: esphome
+
+# default port
+esphome_port: 6052

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BACKUPPATH="/home/{{ ha_user }}/.homeassistant/backups"
+
+# count of all files within your directory
+count=$(find $BACKUPPATH -type f | wc -l)
+
+# remove the ones older than of {{ ha_backup_delete_after_days }} days
+while [ "$count" -gt "{{ ha_backup_keepfiles }}" ]
+do 
+ find $BACKUPPATH -type f -mtime +{{ ha_backup_delete_after_days }} -print -delete -quit
+ count=$((--count))
+done

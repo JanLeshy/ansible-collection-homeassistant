@@ -1,0 +1,17 @@
+[Unit]
+Description=Home Assistant
+After=network.target
+
+[Service]
+Type=simple
+User={{ ha_user }}
+WorkingDirectory=/home/{{ ha_user }}/.homeassistant 
+ExecStart={{ ha_conf_dir }}/bin/hass --config  "/home/{{ ha_user }}/.homeassistant"
+Restart=on-failure
+RestartSec=5s
+RestartForceExitStatus=100
+
+[Install]
+WantedBy=multi-user.target
+
+

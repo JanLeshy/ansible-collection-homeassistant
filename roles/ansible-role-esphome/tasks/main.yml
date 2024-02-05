@@ -1,0 +1,32 @@
+---
+# tasks file for esphome role
+- name: install required packages
+  ansible.builtin.import_tasks: install_dependencies.yml
+  tags:
+      - dependencies
+      - esphome
+
+- name: Create user and Group
+  ansible.builtin.import_tasks: create_user_and_group.yml
+  tags:
+      - user_group
+      - esphome
+
+- name: Create environment and config directory
+  ansible.builtin.import_tasks: create_required_directory.yml
+  tags:
+      - environment
+      - esphome
+
+- name: installation tasks for ESPHome
+  ansible.builtin.import_tasks: install_esphome.yml
+  tags:
+      - installation
+      - esphome
+
+- name: Create systemd service
+  ansible.builtin.import_tasks: create_systemd_service.yml
+  tags:
+      - systemd
+      - esphome
+
