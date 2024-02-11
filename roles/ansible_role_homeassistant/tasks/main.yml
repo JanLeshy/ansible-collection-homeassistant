@@ -5,6 +5,12 @@
       - homeassistant
       - dependencies
 
+- name: set firewall rules
+  ansible.builtin.import_tasks: firewall.yml
+  tags:
+      - homeassistant
+      - firewall
+
 - name: Create user and dir
   ansible.builtin.import_tasks: create_user_and_groups.yml
   tags:
@@ -34,6 +40,12 @@
       - homeassistant
       - restore_backup
   when: ha_backup is defined
+
+- name: Change ownership of homeassistant directory to {{ ha_user }}
+  ansible.builtin.import_tasks: change_ownership.yml
+  tags:
+      - homeassistant
+      - change_owner
 
 - name: Create Service homeassistant service
   ansible.builtin.import_tasks: create_service.yml

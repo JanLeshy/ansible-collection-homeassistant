@@ -1,9 +1,14 @@
 ---
-# tasks file for esphome role
 - name: install required packages
   ansible.builtin.import_tasks: install_dependencies.yml
   tags:
       - dependencies
+      - esphome
+
+- name: Set firewall rule
+  ansible.builtin.import_tasks: firewall.yml
+  tags:
+      - firewall
       - esphome
 
 - name: Create user and Group
@@ -23,6 +28,12 @@
   tags:
       - installation
       - esphome
+
+- name: Change ownership of esphome directory to {{ ha_user }}
+  ansible.builtin.import_tasks: change_ownership.yml
+  tags:
+      - esphome
+      - change_owner
 
 - name: Create systemd service
   ansible.builtin.import_tasks: create_systemd_service.yml
