@@ -1,5 +1,7 @@
 # CHANGELOG
 
+ALL CHANGES ARE DOCUMENTED IN THE COLLECTION [CHANGELOG](https://github.com/JanLeshy/ansible-collection-homeassistant/blob/main/CHANGELOG.md)!
+
 ## Version Update 1.2.0
 
 - add additional groups for raspberry pi support

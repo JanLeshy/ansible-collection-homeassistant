@@ -15,7 +15,7 @@ No requirements
 | `ha_port`                     | 8123               | the webaccess port                                                                                                                                                                                                                |
 | `ha_conf_dir`                 | /srv/homeassistant | The config path, where homeassistant woud be installed                                                                                                                                                                            |
 | `ha_version`                  | None               | A specified homeassistant which would be installed, recommendly use for updated to a higher version if the new version is not next version from the current installation.                                                         |
-| `ha_backup`                   | None               | a defined backup file from a homeassistant backup, which would be restored. Put backup file in the files folder from role and set filename in th variable                                                                         |
+| `ha_backup`                   | None               | restore a homeassistant backup Put backup file in the files folder from role and set filename in th variable, [Restore a backup](#restore-a-backup)                                                                         |
 | `ha_additional_pi_groups`     | dialout,gpio,i2c   | addiotion requrired groups for the homeassitent installation on a rasperry pi, do not change or overwrite the values                                                                                                              |
 | `ha_check_delay`              | 45                 | delay in seconds for waiting if Home Assistent is available                                                                                                                                                                       |
 | `ha_python`                   | 3.11               | The python version for homeassistant, if not available on the system it will be installed check recommend version [Python](https://www.home-assistant.io/installation/macos#install-home-assistant-core)                          |
@@ -27,7 +27,7 @@ No requirements
 
 None
 
-### Example Backup policies
+## Example to set Backup policies
 
 to config backups for your Homeassistant installation, [Backup Integration](https://www.home-assistant.io/integrations/backup/)
 at the moment the backup integration does not support a delete policy, so you can use the cron job from this role to delete old backups.
@@ -54,6 +54,15 @@ If you want to delete all backups older than 7 days, regardless of the number of
   ha_backup_keepfiles: 0
 ```
 
+## Restore a backup
+
+if you want to get restore your homeassistant [backup](https://www.home-assistant.io/common-tasks/os/#backups), you can use the following configuration, to restore this backup in your new instance:
+
+```yaml
+  ha_backup: your_backup.tar
+```
+
+currently, the backup file must be in the files folder `roles/ansible_role_homeassistant/files` from the role, and the filename must be set in the variable.
 
 ## Example Playbook
 
@@ -92,5 +101,5 @@ MIT
 
 ## Author Information
 
-Jan Roepke
+Jan Roepke (JanLeshy)
 have fun with it, and feel free to contribute or contact me.
