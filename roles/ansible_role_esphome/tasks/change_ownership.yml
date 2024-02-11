@@ -1,0 +1,7 @@
+---
+- name: Change ownership of homeassistant directory to {{ ha_user }}
+  ansible.builtin.file:
+    path: "{{ esphome_conf_dir }}"
+    owner: "{{ esphome_user }}"
+    group: "{{ esphome_group }}"
+    recurse: yes
