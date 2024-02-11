@@ -1,0 +1,15 @@
+---
+- name: check whether ufw status is active
+  shell: ufw status
+  changed_when: false
+  ignore_errors: true
+  register: ufw_check
+
+- name: Allow Web UI in UFW
+  ufw: 
+    rule: allow 
+    port: "{{ ha_port }}"
+    proto: tcp
+  when: 
+  - "'inactive' not in ufw_check.stdout"
+  - ufw_check is not defined
