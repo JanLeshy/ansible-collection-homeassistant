@@ -12,7 +12,7 @@
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
 
-- name: BAckup current homeassistant config directory
+- name: Backup current homeassistant config directory
   community.general.archive:
     path: "/home/{{ ha_user }}/.homeassistant"
     dest: "/home/{{ ha_user }}/ha_backup_restore/homeassistant_ansible_backup{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}.tgz"
@@ -29,24 +29,43 @@
     group: "{{ ha_group }}"
     mode: preserve
 
+- name: create folder for untar
+  ansible.builtin.file:
+    path: "/home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}"
+    state: directory
+    mode: "02775"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+
 - name: Untar backupfile on remote
   ansible.builtin.unarchive:
     src: /home/{{ ha_user }}/ha_backup_restore/{{ ha_backup }}
-    dest: /home/{{ ha_user }}/ha_backup_restore
+    dest: /home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}/
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    remote_src: true
+
+- name: untar the homeassistant.tar.gz file
+  ansible.builtin.unarchive:
+    src: "/home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}/homeassistant.tar.gz"
+    dest: "/home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
     remote_src: true
 
 - name: Copy files from data folder to ha_conf_dir
   ansible.builtin.copy:
-    src: "/home/{{ ha_user }}/ha_backup_restore/data/"
+    src: "/home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}/data/"
     dest: "/home/{{ ha_user }}/.homeassistant"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
     directory_mode: true
     remote_src: true
     mode: preserve
-    owner: "{{ ha_user }}"
 
 - name: Remove ha_backup_restore folder
   ansible.builtin.file:
-    path: "/home/{{ ha_user }}/ha_backup_restore"
+    path: "/home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}"
     state: absent
 
 - name: Start homeassistent Service
