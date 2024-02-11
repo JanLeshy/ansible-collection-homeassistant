@@ -1,15 +1,8 @@
 ---
-# tasks to install required packages for Home Assistant
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: true
   when: ansible_os_family == "Debian"
-
-- name: Install specific OS packages
-  ansible.builtin.package:
-    name: libtiff6
-    state: present
-  when: ansible_distribution == "Debian"
 
 - name: Install specific packages
   ansible.builtin.package:
@@ -35,15 +28,3 @@
     - liblapack3
     - liblapack-dev
     - libatlas-base-dev
-
-- name: Install Debian-required additional pip packages
-  ansible.builtin.pip:
-    name: "{{ item }}"
-    state: present
-    executable: pip3
-  with_items:
-    - appdirs
-    - packaging
-    - wheel
-    - aiohttp_cors
-  when: ansible_os_family == "Debian"
