@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version Update 1.3.1
+
+- FIX: esphome service file, the esphome service would be started and loads the configuration file but you cant save your changes, or update the esp devices.
+
 ## Version Update 1.3.0
 
 ### Role specified changes
