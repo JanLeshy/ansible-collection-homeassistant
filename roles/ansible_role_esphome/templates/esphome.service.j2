@@ -12,3 +12,6 @@ RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
+
+[Service]
+Environment=PATH={{ esphome_conf_dir }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
