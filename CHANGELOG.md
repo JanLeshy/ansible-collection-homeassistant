@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version Update 1.4.0
+
+- FEAT[ansible_role_homeassistant]: variable `ha_backup` can now set to absolute or relative path from the playbook directory to the homeassistant backup file. [Example](roles/ansible_role_homeassistant/README.md#restore-a-backup)
+
 ## Version Update 1.3.1
 
 - FIX: esphome service file, the esphome service would be started and loads the configuration file but you cant save your changes, or update the esp devices.

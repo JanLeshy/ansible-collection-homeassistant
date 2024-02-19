@@ -23,7 +23,7 @@
 
 - name: Copy backupfile to remote server
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/{{ ha_backup }}"
+    src: "{{ ha_backup }}"
     dest: "/home/{{ ha_user }}/ha_backup_restore"
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
