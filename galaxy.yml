@@ -2,14 +2,14 @@ namespace: janleshy
 
 name: homeassistant
 
-version: 1.4.0
+version: 1.5.0
 
 readme: README.md
 
 authors:
   - Jan Roepke (JanLeshy)
 
-description: A Collection to install and manage homeassistant and additional software like ESPHome
+description: A Collection to install and manage homeassistant and additional Software
 
 license_file: LICENSE
 
@@ -36,5 +36,4 @@ homepage: https://github.com/janleshy/ansible-collection-homeassistant
 issues: https://github.com/janleshy/ansible-collection-homeassistant/issues
 
 build_ignore: []
-
 

@@ -1,8 +1,21 @@
 # CHANGELOG
 
+## Version Update 1.5.0
+
+- FEAT[ansible_role_homeassistant]: add get_ha_facts task, this one checks if a current homeassistant installation is available true. checks the HA version and the python version. Now it is possible to update an existing HA installation wihtout using the tag 'update_homeassistent' in your ansible-playbook run command. Also it check the desired Python Version, if only the python version in not te desired version, the python version will be updated.
+
+- FEAT[ansible_role_homeassistant]: python3.12.2 is now the default python version for the homeassistant virtual environment and will be installed, if not available on the system.
+You can change the python version with the variable `ha_python_realease`. Available versions can find here [python_versions](https://www.python.org/downloads/source)
+
+- FEAT[ansible_role_homeassistant]: if you want to update the python version on an existing homeassistant installation, it will be create a backup of the current homeassistant installation, before the python version will be updated. Additonal information can be found here [Example](roles/ansible_role_homeassistant/README.md#update)
+
+- DOCS: updated description to code-spell-checker update an existing homeassistant installation, [Example](roles/ansible_role_homeassistant/README.md#update-an-existing-homeassistant-installation)
+
+- CHORE: make the ansible linter happy, resolve warnings and errors
+
 ## Version Update 1.4.0
 
-- FEAT[ansible_role_homeassistant]: variable `ha_backup` can now set to absolute or relative path from the playbook directory to the homeassistant backup file. [Example](roles/ansible_role_homeassistant/README.md#restore-a-backup)
+- FEAT[ansible_role_homeassistant]: variable `ha_backup` can now set to absolutew or relative path from the playbook directory to the homeassistant backup file. [Example](roles/ansible_role_homeassistant/README.md#restore-a-backup)
 
 ## Version Update 1.3.1
 
