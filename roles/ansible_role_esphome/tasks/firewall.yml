@@ -12,4 +12,4 @@
     proto: tcp
   when: 
   - "'inactive' not in ufw_check.stdout"
-  - ufw_check is not defined
+  - ufw_check is undefined
