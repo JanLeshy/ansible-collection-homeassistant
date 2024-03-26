@@ -4,4 +4,4 @@
     path: "{{ ha_conf_dir }}"
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
-    recurse: yes
+    recurse: true

@@ -1,0 +1,69 @@
+---
+- name: Check for existing homeassistant installation
+  ansible.builtin.stat:
+    path: "{{ ha_conf_dir }}/bin/hass"
+  register: ha_conf_dir_stat
+
+- name: Check current homeassistant version
+  ansible.builtin.command: "{{ ha_conf_dir }}/bin/hass --version"
+  register: ha_current_ha_version_stat
+  changed_when: ha_current_ha_version_stat.rc != 0
+  when: ha_conf_dir_stat.stat.exists
+
+- name: Get python version from homeassistant virtuel environment
+  ansible.builtin.command: "{{ ha_conf_dir }}/bin/python3 -V"
+  register: ha_current_used_python_version_stat
+  changed_when: ha_current_used_python_version_stat.rc != 0
+  when: ha_conf_dir_stat.stat.exists
+
+- name: Get latest homeassistant version
+  ansible.builtin.uri:
+    url: "https://pypi.org/pypi/homeassistant/json"
+  register: ha_latest_version
+  when: ha_version == "latest"
+
+- name: Define var for latest homeassistant version
+  ansible.builtin.set_fact:
+    ha_version: "{{ ha_latest_version.json.info.version }}"
+  when: ha_version == "latest"
+
+- name: Evaluation block
+  when: ha_conf_dir_stat.stat.exists
+  block:
+    - name: Evaluation homeassistant facts
+      ansible.builtin.debug:
+        msg:
+          - "exisiting homeassistant directory found"
+          - "installed Homeassistant Version: {{ ha_current_ha_version_stat.stdout }}, desired Version: {{ ha_version }}"
+          - "Homeassistant used Python Version: {{ ha_current_used_python_version_stat.stdout }}, desired Python Version: {{ ha_python_release }}"
+      when: ha_conf_dir_stat.stat.exists
+
+    - name: Evaluation homeassistant version fact
+      ansible.builtin.debug:
+        msg:
+          - "installed Homeassistant Version: {{ ha_current_ha_version_stat.stdout }}, desired Version: {{ ha_version }}. Version will be updated/reinstalled"
+      when: ha_current_ha_version_stat.stdout is defined and ha_current_ha_version_stat.stdout is version(ha_version, '<=')
+
+    - name: Set ha_version_update to true
+      ansible.builtin.set_fact:
+        ha_version_update: true
+      when: ha_current_ha_version_stat.stdout is defined and ha_current_ha_version_stat.stdout is version(ha_version, '<=')
+
+    - name: Evaluation homeassistant python version fact
+      ansible.builtin.debug:
+        msg: [
+          "installed Homeassistant Python Version: ha_current_used_python_version_stat.stdout, desired Python Version: ha_python_release.
+          Python version will be updated/reinstalled"
+        ]
+      when: ha_current_used_python_version_stat.stdout < ha_python_release and ha_conf_dir_stat.stat.exists
+
+    - name: Set ha_version_update to true
+      ansible.builtin.set_fact:
+        ha_python_update: true
+      when: ha_current_used_python_version_stat.stdout < ha_python_release and ha_conf_dir_stat.stat.exists
+
+- name: Log homeassistant facts
+  ansible.builtin.debug:
+    msg:
+      - "no exisiting homeassistant installation found, desired homeassistant and python version will be installed"
+  when: ha_conf_dir_stat.stat is undefined

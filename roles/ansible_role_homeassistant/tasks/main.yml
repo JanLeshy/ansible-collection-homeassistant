@@ -1,11 +1,23 @@
 ---
-- name: install dependencies
+- name: Get homeassistant facts
+  ansible.builtin.import_tasks: get_ha_facts.yml
+  tags:
+      - homeassistant
+      - get_ha_facts
+
+- name: Install dependencies
   ansible.builtin.import_tasks: install_dependencies.yml
   tags:
       - homeassistant
       - dependencies
 
-- name: set firewall rules
+- name: Install specific version of python
+  ansible.builtin.import_tasks: install_python.yml
+  tags:
+      - homeassistant
+      - python
+
+- name: Set firewall rules
   ansible.builtin.import_tasks: firewall.yml
   tags:
       - homeassistant
@@ -23,18 +35,14 @@
       - homeassistant
       - create_environment_directory
 
-- name: install homeassistent
+- name: Install homeassistent
   ansible.builtin.import_tasks: installation_homeassistent.yml
   tags:
       - homeassistant
       - installation
+  when: not ha_version_update
 
-- name: Update update_homeassistent
-  ansible.builtin.import_tasks: update_homeassistent.yml
-  tags:
-      - update_homeassistent
-
-- name: Restore from given backup file 
+- name: Restore from given backup file
   ansible.builtin.import_tasks: restore_from_backup.yml
   tags:
       - homeassistant
@@ -53,9 +61,15 @@
       - homeassistant
       - service
 
-- name: Create cron entry for delete backup,after "{{ ha_backup_delete_after_days }}" days
+- name: Create cron entry for delete backup,after days "{{ ha_backup_delete_after_days }}"
   ansible.builtin.import_tasks: create_cron_to_delete_backups.yml
   tags:
       - homeassistant
       - cron
   when: ha_backup_cron | bool
+
+- name: Update update_homeassistent
+  ansible.builtin.import_tasks: update_homeassistent.yml
+  tags:
+      - update_homeassistent
+  when: ha_version_update or ha_python_update

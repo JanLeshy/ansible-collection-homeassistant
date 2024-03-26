@@ -1,15 +1,59 @@
 ---
-- name: Add deadsnakes PPA
-  ansible.builtin.apt_repository:
-    repo: ppa:deadsnakes/ppa
-    state: present
+- name: Get python version from remote
+  ansible.builtin.command: python{{ ha_python_release | regex_replace('(?P<main>^\d\.\d{1,})(?P<bugfix>\.\d{1,})', '\g<main>') }} -V
+  register: python_version
+  ignore_errors: true
+  changed_when: false
 
-- name: Update apt package cache
-  ansible.builtin.apt:
-    update_cache: true
+- name: Define extra python release variable
+  ansible.builtin.set_fact:
+      py_release: "{{ python_version.stdout | replace('Python ', '') }}"
+  when: python_version is defined
 
-- name: Install specified Python version
-  ansible.builtin.apt:
-    name: python{{ ha_python }}
-    state: present
+- name: Install Python Block
+  when: py_release != ha_python_release
+  block:
+      - name: Download Python source archive
+        ansible.builtin.get_url:
+            dest: "{{ ha_python_src_dir }}"
+            url: "{{ ha_python_url }}"
+            mode: "0755"
 
+      - name: Extract archive
+        ansible.builtin.unarchive:
+            src: "{{ ha_python_src_dir }}/{{ ha_python_archive }}"
+            dest: "{{ ha_python_src_dir }}"
+            remote_src: true
+
+      - name: Run ./configure
+        ansible.builtin.command:
+            cmd: ./configure --enable-optimizations --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+            chdir: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
+            creates: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}/config.log"
+
+      - name: Run make to build python
+        community.general.make:
+            chdir: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
+
+      - name: Run make install
+        community.general.make:
+            chdir: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
+            target: install
+
+      - name: Remove python source
+        ansible.builtin.file:
+            path: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
+            state: absent
+
+- name: Get python version from remote
+  ansible.builtin.command: which python{{ ha_python_release | regex_replace('(?P<main>^\d\.\d{1,})(?P<bugfix>\.\d{1,})', '\g<main>') }}
+  register: python_version_which
+  changed_when: false
+
+- name: Define extra python which variable
+  ansible.builtin.set_fact:
+      py_which_out: "{{ python_version_which.stdout }}"
+
+- name: Used python3 version
+  ansible.builtin.debug:
+      msg: use python{{ py_release }} from path {{ py_which_out }}

@@ -3,12 +3,30 @@
   hosts: all
   gather_facts: true
   tasks:
-
-    - name: Import role homeassistant
+    - name: First install of homeassistant
       ansible.builtin.include_role:
         name: ansible_role_homeassistant
       vars:
         ha_backup_cron: true
         ha_backup_delete_after_days: 7
         ha_backup_keepfiles: 3
-        ha_backup: test_backup.tar
+        ha_version: 2023.11.0
+        ha_python_release: 3.11.2
+
+    - name: Update only the python version
+      ansible.builtin.include_role:
+        name: ansible_role_homeassistant
+      vars:
+        ha_backup_cron: true
+        ha_backup_delete_after_days: 7
+        ha_backup_keepfiles: 3
+        ha_version: 2023.11.0
+        ha_python_release: 3.12.0
+
+    - name: Update homeassistant to latest version and python to default
+      ansible.builtin.include_role:
+        name: ansible_role_homeassistant
+      vars:
+        ha_backup_cron: true
+        ha_backup_delete_after_days: 7
+        ha_backup_keepfiles: 3
