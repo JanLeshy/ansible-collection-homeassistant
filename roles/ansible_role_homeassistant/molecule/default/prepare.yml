@@ -13,3 +13,9 @@
         name: cron
         state: present
       when: ansible_os_family == "Debian"
+
+    - name: Install gnupg2
+      ansible.builtin.package:
+        name: gnupg2
+        state: present
+      when: ansible_os_family == "Debian"
