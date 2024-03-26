@@ -1,24 +1,44 @@
 ---
 - name: Stop running homeassistant service
   ansible.builtin.command: echo "Stop Home Assistant"
+  changed_when: false
   notify: "Stop Home Assistant"
 
-- name: Install defined version of Home Assistant in virtual environment
+- name: FLush Handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Backup current installation and remove old installation, Backupfile stored in home directory
+  community.general.archive:
+    path: "{{ ha_conf_dir }}"
+    dest: "{{ ha_backup_existing_installation_dir }}/homeassistant-backup-{{ ansible_date_time.date }}.tar.gz"
+    mode: "0775"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    format: gz
+    remove: true
+  when: ha_python_update
+
+- name: Install dependencies
+  ansible.builtin.import_tasks: install_dependencies.yml
+
+- name: Install required python modules (pre-install in virtual environment)
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    virtualenv: "{{ ha_conf_dir }}"
+    virtualenv_site_packages: 1
+    virtualenv_command: "{{ py_which_out }} -m venv"
+  with_items:
+    - colorlog
+    - wheel
+    - appdirs
+    - packaging
+    - aiohttp_cors
+
+- name: Update Homeassistant in virtual environment to "{{ ha_version }}"
   ansible.builtin.pip:
     name: homeassistant
     version: "{{ ha_version }}"
     virtualenv: "{{ ha_conf_dir }}"
     virtualenv_site_packages: 1
-    virtualenv_command: /usr/bin/python3 -m venv
-  when: ha_version is defined
-  notify: "Start Home Assistant"
-
-- name: Install latest version of Home Assistant in virtual environment
-  ansible.builtin.pip:
-    name: homeassistant
-    virtualenv: "{{ ha_conf_dir }}"
-    virtualenv_command: /usr/bin/python3 -m venv
-    virtualenv_site_packages: 1
-    extra_args: "--upgrade"
-  notify: "Start Home Assistant"
-
+    virtualenv_command: "{{ py_which_out }} -m venv"
+  notify: "Restart Home Assistant"
