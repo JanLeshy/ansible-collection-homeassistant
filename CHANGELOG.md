@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version Update 1.5.1
+
+FIX: add missing dependency "libsqlite3-dev", without this package, python3 woud not compieled with sqlite3 and HA can not access the database
+
 ## Version Update 1.5.0
 
 - FEAT[ansible_role_homeassistant]: add get_ha_facts task, this one checks if a current homeassistant installation is available true. checks the HA version and the python version. Now it is possible to update an existing HA installation wihtout using the tag 'update_homeassistent' in your ansible-playbook run command. Also it check the desired Python Version, if only the python version in not te desired version, the python version will be updated.
