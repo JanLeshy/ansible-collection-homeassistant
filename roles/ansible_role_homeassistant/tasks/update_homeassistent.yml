@@ -16,7 +16,6 @@
     group: "{{ ha_group }}"
     format: gz
     remove: true
-  when: ha_python_update
 
 - name: Install dependencies
   ansible.builtin.import_tasks: install_dependencies.yml

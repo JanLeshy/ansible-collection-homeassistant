@@ -68,8 +68,8 @@
       - cron
   when: ha_backup_cron | bool
 
-- name: Update update_homeassistent
+- name: Update Homeassistent
   ansible.builtin.import_tasks: update_homeassistent.yml
   tags:
       - update_homeassistent
-  when: ha_version_update or ha_python_update
+  when: ha_version_update|bool == true or ha_python_update|bool == true
