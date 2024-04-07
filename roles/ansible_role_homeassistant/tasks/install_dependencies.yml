@@ -28,3 +28,5 @@
     - liblapack3
     - liblapack-dev
     - libatlas-base-dev
+    - libsqlite3-dev
+
