@@ -2,7 +2,7 @@ namespace: janleshy
 
 name: homeassistant
 
-version: 1.5.1
+version: 1.5.2
 
 readme: README.md
 

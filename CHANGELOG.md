@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version Update 1.5.2
+
+FIX: create only backup if new python version woud be installed and also install the dependencies again and change the ownership to HA_user at least
+
 ## Version Update 1.5.1
 
 FIX: add missing dependency "libsqlite3-dev", without this package, python3 woud not compieled with sqlite3 and HA can not access the database
