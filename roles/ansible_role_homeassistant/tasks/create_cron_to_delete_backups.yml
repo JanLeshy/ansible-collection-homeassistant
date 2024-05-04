@@ -13,4 +13,4 @@
     minute: "0"
     hour: "4"
     job: "/home/{{ ha_user }}/.homeassistant/delete_backups_job.sh"
-  remote_user: "{{ ha_user }}"
+    user: "{{ ha_user }}"

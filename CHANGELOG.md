@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Version Update 1.5.2
+FIX: remove remote_user setting in task and set user value in ansible.builitin.cron, with the remote_user setting it doesn´t create the the cron entry correctly.
+
 ## Version Update 1.5.1
 
 FIX: add missing dependency "libsqlite3-dev", without this package, python3 woud not compieled with sqlite3 and HA can not access the database
