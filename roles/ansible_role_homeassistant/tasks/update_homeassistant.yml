@@ -24,16 +24,16 @@
 
 - name: Install required python modules (pre-install in virtual environment)
   ansible.builtin.pip:
-    name: "{{ item }}"
+    name:
+      - colorlog
+      - wheel
+      - appdirs
+      - packaging
+      - aiohttp_cors    
     virtualenv: "{{ ha_conf_dir }}"
     virtualenv_site_packages: 1
     virtualenv_command: "{{ py_which_out }} -m venv"
-  with_items:
-    - colorlog
-    - wheel
-    - appdirs
-    - packaging
-    - aiohttp_cors
+
   when: ha_python_update|bool == true
 
 - name: Update Homeassistant in virtual environment to "{{ ha_version }}"
