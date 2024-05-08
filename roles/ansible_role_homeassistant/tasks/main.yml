@@ -72,4 +72,4 @@
   ansible.builtin.import_tasks: update_homeassistant.yml
   tags:
       - update_homeassistant
-  when: ha_version_update|bool == true or ha_python_update|bool == true
+  when: ha_version_update | bool or ha_python_update | bool
