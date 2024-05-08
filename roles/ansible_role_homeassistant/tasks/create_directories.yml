@@ -10,3 +10,4 @@
   with_items:
     - "{{ ha_conf_dir }}"
     - "{{ ha_work_dir }}"
+    - "{{ ha_log_dir }}"

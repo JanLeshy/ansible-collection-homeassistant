@@ -4,6 +4,7 @@
 # location of the config directory
 ha_conf_dir: /srv/homeassistant
 ha_work_dir: "/home/{{ ha_user }}/.homeassistant"
+ha_log_dir: "/home/{{ ha_user }}/.homeassistant"
 
 # The default user
 ha_user: homeassistant
