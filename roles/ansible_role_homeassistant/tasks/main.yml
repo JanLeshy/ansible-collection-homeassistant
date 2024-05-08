@@ -29,8 +29,8 @@
       - homeassistant
       - create_user
 
-- name: Create environment directory
-  ansible.builtin.import_tasks: create_environment_directory.yml
+- name: Create directories
+  ansible.builtin.import_tasks: create_directories.yml
   tags:
       - homeassistant
       - create_environment_directory

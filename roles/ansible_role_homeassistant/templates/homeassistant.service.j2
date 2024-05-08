@@ -5,13 +5,11 @@ After=network.target
 [Service]
 Type=simple
 User={{ ha_user }}
-WorkingDirectory=/home/{{ ha_user }}/.homeassistant 
-ExecStart={{ ha_conf_dir }}/bin/hass --config  "/home/{{ ha_user }}/.homeassistant"
+WorkingDirectory={{ ha_work_dir }}
+ExecStart={{ ha_conf_dir }}/bin/hass --config {{ ha_work_dir }}
 Restart=on-failure
 RestartSec=5s
 RestartForceExitStatus=100
 
 [Install]
 WantedBy=multi-user.target
-
-
