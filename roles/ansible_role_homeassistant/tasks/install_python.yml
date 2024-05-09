@@ -34,11 +34,13 @@
       - name: Run make to build python
         community.general.make:
             chdir: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
+            jobs: "{{ ha_python_makejobs }}"
 
       - name: Run make install
         community.general.make:
             chdir: "{{ ha_python_src_dir }}/Python-{{ ha_python_release }}"
             target: install
+            jobs: "{{ ha_python_makejobs }}"
 
       - name: Remove python source
         ansible.builtin.file:

@@ -33,6 +33,7 @@ ha_python_release: 3.12.2  # See https://www.python.org/downloads/source/
 ha_python_src_dir: /tmp
 ha_python_archive: Python-{{ ha_python_release }}.tgz
 ha_python_url: https://www.python.org/ftp/python/{{ ha_python_release }}/{{ ha_python_archive }}
+ha_python_makejobs: "{{ ansible_processor_nproc }}"
 
 # backup directory for existing HA installatation before upgrade virtuel env to new version
 ha_backup_existing_installation_dir: /home/{{ ha_user }}
