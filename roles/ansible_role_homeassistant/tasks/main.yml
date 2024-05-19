@@ -29,14 +29,14 @@
       - homeassistant
       - create_user
 
-- name: Create environment directory
-  ansible.builtin.import_tasks: create_environment_directory.yml
+- name: Create directories
+  ansible.builtin.import_tasks: create_directories.yml
   tags:
       - homeassistant
       - create_environment_directory
 
-- name: Install homeassistent
-  ansible.builtin.import_tasks: installation_homeassistent.yml
+- name: Install homeassistant
+  ansible.builtin.import_tasks: installation_homeassistant.yml
   tags:
       - homeassistant
       - installation
@@ -68,8 +68,8 @@
       - cron
   when: ha_backup_cron | bool
 
-- name: Update Homeassistent
-  ansible.builtin.import_tasks: update_homeassistent.yml
+- name: Update Homeassistant
+  ansible.builtin.import_tasks: update_homeassistant.yml
   tags:
-      - update_homeassistent
-  when: ha_version_update|bool == true or ha_python_update|bool == true
+      - update_homeassistant
+  when: ha_version_update | bool or ha_python_update | bool
