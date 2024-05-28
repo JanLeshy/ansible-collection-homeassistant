@@ -14,6 +14,8 @@ No requirements
 | `ha_group`                    | homeassistant      | The group which would created                                                                                                                                                                                                                                                |
 | `ha_port`                     | 8123               | the webaccess port                                                                                                                                                                                                                                                           |
 | `ha_conf_dir`                 | /srv/homeassistant | The config path, where homeassistant woud be installed                                                                                                                                                                                                                       |
+| `ha_ha_work_dir` | /home/`ha_user`/.homeassistant | The homeassistant work directory |
+| `ha_log_dir` | /home/`ha_user`/.homeassistant | The homeassistant log directory |
 | `ha_version`                  | latest             | A specified homeassistant which would be installed, recommendly use for updated to a higher version if the new version is not next version from the current installation.                                                                                                    |
 | `ha_backup`                   | None               | set absolute or relative path from playbook directory to the homeassistant backup file [Restore a backup](#restore-a-backup)                                                                                                                                                 |
 | `ha_additional_pi_groups`     | dialout,gpio,i2c   | addiotion requrired groups for the homeassitent installation on a rasperry pi, do not change or overwrite the values                                                                                                                                                         |
@@ -22,10 +24,11 @@ No requirements
 | `ha_backup_cron`              | false              | if set to true, it creates an cron entry for your homeassistant user, a custom delete time for backups, per day (var: `ha_backup_delete_after_days`) or per keep files (`ha_backup_delete_after_days`) and combining both values. [Example](#example-to-set-backup-policies) |
 | `ha_backup_delete_after_days` | 7                  | delete all backups older definded value in days, if you want delete                                                                                                                                                                                                          |
 | `ha_backup_keepfiles`         | 3                  | keep defined value files, regardless the `ha_backup_delete_after_days` value                                                                                                                                                                                                 |
-|`ha_python_release`| 3.12.2  | # See <https://www.python.org/downloads/source/> |
+|`ha_python_release`| 3.12.3  | # See <https://www.python.org/downloads/source/> |
 |`ha_python_src_dir`| /tmp | download source directory |
 |`ha_python_url` | <https://www.python.org/ftp/python/> | Python download URL |
-| `ha_backup_ext_inst_dir` | /home/{{ ha_user }} | Backup of existing installation, in case of python backup [Info](#update-the-python-version) |
+| `ha_backup_ext_inst_dir` | /home/{{ `ha_user` | Backup of existing installation, in case of python backup [Info](#update-the-python-version) |
+| `ansible_processor_nproc` | Number of CPU cores | Number of processors for the python build |
 
 ## Dependencies
 
