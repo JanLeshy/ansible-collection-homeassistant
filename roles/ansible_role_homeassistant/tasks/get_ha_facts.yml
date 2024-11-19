@@ -5,7 +5,7 @@
   register: ha_conf_dir_stat
 
 - name: Check current homeassistant version
-  ansible.builtin.command: "{{ ha_conf_dir }}/bin/hass --version"
+  ansible.builtin.shell: "{{ ha_conf_dir }}/bin/pip show homeassistant | grep Version | awk '{print $2}'"
   register: ha_current_ha_version_stat
   changed_when: ha_current_ha_version_stat.rc != 0
   when: ha_conf_dir_stat.stat.exists
@@ -42,7 +42,7 @@
       ansible.builtin.debug:
         msg:
           - "installed Homeassistant Version: {{ ha_current_ha_version_stat.stdout }}, desired Version: {{ ha_version }}. Version will be updated/reinstalled"
-      when: ha_current_ha_version_stat.stdout is defined and ha_current_ha_version_stat.stdout is version(ha_version, '<=')
+      when: ha_current_ha_version_stat.stdout is defined and ha_current_ha_version_stat.stdout is version( ha_version, '<=')
 
     - name: Set ha_version_update to true
       ansible.builtin.set_fact:
