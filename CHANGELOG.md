@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Version Update 1.6.0
+
+FEAT: Support authentication for ESPHome, set `esphome_ui_user` and `esphome_ui_password` to enable authentication for the ESPHome Webinterface, check REDME for more information
+
+FIX: Restart ESPHome Service after update
+
+## Version Update 1.5.5
+FEAT: Change Methode to get the current HA Version
+
+## Version Udpate 1.5.4
+FEAT: Add customizable directories by @timvy
+
 ## Version Update 1.5.3
 FIX: remove remote_user setting in task and set user value in ansible.builitin.cron, with the remote_user setting it doesn´t create the the cron entry correctly.
 

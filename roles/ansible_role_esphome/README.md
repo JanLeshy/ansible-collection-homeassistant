@@ -8,15 +8,15 @@ None
 
 ## Role Variables
 
-| Name                  | Default Value | Description                                                               |
-| --------------------- | ------------- | ------------------------------------------------------------------------- |
-| `esphome_user`        | esphome       | The user which would created and run the esphome installation and service |
-| `esphome_group`       | esphome       | The group which would created                                             |
-| `esphome_port`        | 6052          | the webaccess port                                                        |
-| `esphome_conf_dir`    | /opt/esphome/ | The config path, where ESP Home woud be installed                         |
-| `esphome_version`     |               | The specific version of ESP Home to install                               |
-| `esphome_ui_user`     |               | The username for UI authentication                                        |
-| `esphome_ui_password` |               | The password for UI authentication                                        |
+| Name                  | Default Value | Description                                                                          |
+| --------------------- | ------------- | ------------------------------------------------------------------------------------ |
+| `esphome_user`        | esphome       | The user which would created and run the esphome installation and service            |
+| `esphome_group`       | esphome       | The group which would created                                                        |
+| `esphome_port`        | 6052          | the webaccess port                                                                   |
+| `esphome_conf_dir`    | /opt/esphome/ | The config path, where ESP Home woud be installed                                    |
+| `esphome_version`     |               | The specific version of ESP Home to install                                          |
+| `esphome_ui_user`     |               | The username for UI authentication, if not present no authentification whill be used |
+| `esphome_ui_password` |               | The password for UI authentication, depends with `esphome_ui_user`                   |
 
 ## Dependencies
 
