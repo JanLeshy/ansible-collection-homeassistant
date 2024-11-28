@@ -11,6 +11,7 @@
     virtualenv_command: /usr/bin/python3 -m venv
 
 - name: Install defined version of ESPHome in virtual environment
+  notify: Restart ESP Home
   ansible.builtin.pip:
     name: esphome
     version: "{{ esphome_version }}"
@@ -20,6 +21,7 @@
   when: esphome_version is defined
 
 - name: Install latest version of ESPHome in virtual environment
+  notify: Restart ESP Home
   ansible.builtin.pip:
     name: esphome
     virtualenv: "{{ esphome_conf_dir }}"
