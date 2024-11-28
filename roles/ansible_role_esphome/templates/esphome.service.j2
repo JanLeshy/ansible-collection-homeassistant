@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User={{ esphome_user }}
 WorkingDirectory={{ esphome_conf_dir }}
-ExecStart={{ esphome_conf_dir }}/bin/esphome dashboard /home/{{ esphome_user }}/esphome/config/
+ExecStart={{ esphome_conf_dir }}/bin/esphome dashboard {% if esphome_ui_user is defined and esphome_ui_password is defined %}--username '{{ esphome_ui_user  }}' --password '{{ esphome_ui_password }}' {% endif%}/home/{{ esphome_user }}/esphome/config/
 Restart=on-failure
 RestartSec=5s
 
