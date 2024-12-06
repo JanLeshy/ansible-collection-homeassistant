@@ -43,7 +43,7 @@
 
 - name: Untar backupfile on remote
   ansible.builtin.unarchive:
-    src: /home/{{ ha_user }}/ha_backup_restore/{{ ha_backup }}
+    src: /home/{{ ha_user }}/ha_backup_restore/{{ ha_backup | basename }}
     dest: /home/{{ ha_user }}/ha_backup_restore/{{ ha_backup[:-4] }}/
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
