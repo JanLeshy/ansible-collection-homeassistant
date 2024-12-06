@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## Version Update 1.6.1
+
+FIX: Handle error when using fqpn for backup file
+
 ## Version Update 1.6.0
 
-FEAT: Support authentication for ESPHome, set `esphome_ui_user` and `esphome_ui_password` to enable authentication for the ESPHome Webinterface, check REDME for more information
+FEAT: Support authentication for ESPHome, set `esphome_ui_user` and `esphome_ui_password` to enable authentication for the ESPHome Webinterface, check [README]() for more information
 
 FIX: Restart ESPHome Service after update
 
