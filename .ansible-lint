@@ -1,0 +1,5 @@
+---
+skip_list:
+  - var-namingrisky
+  - risky-shell-pipe
+  - var-naming[no-role-prefix]

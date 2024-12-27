@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Test Ansible Role ESPHome
+  hosts: localhost
   remote_user: root
   roles:
-    - esphome
+    - ansible_role_esphome

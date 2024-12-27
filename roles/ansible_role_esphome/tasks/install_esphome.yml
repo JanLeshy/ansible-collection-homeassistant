@@ -1,11 +1,10 @@
 ---
 - name: Install required python modules (pre-install)
   ansible.builtin.pip:
-    name: 
+    name:
       - esptool
       - colorlog
       - tornado
-      - esptool      
     virtualenv: "{{ esphome_conf_dir }}"
     virtualenv_site_packages: 1
     virtualenv_command: /usr/bin/python3 -m venv

@@ -3,16 +3,16 @@
   ansible.builtin.file:
     path: "{{ esphome_conf_dir }}"
     state: directory
-    mode: 02775
+    mode: "0775"
     owner: "{{ esphome_user }}"
     group: "{{ esphome_group }}"
-    recurse: yes
+    recurse: true
 
 - name: Create config directory
   ansible.builtin.file:
     path: "/home/{{ esphome_user }}/esphome/config/"
     state: directory
-    mode: 02775
+    mode: "0775"
     owner: "{{ esphome_user }}"
     group: "{{ esphome_group }}"
-    recurse: yes
+    recurse: true

@@ -1,5 +1,5 @@
 ---
-- name: install required packages
+- name: Install required packages
   ansible.builtin.import_tasks: install_dependencies.yml
   tags:
       - dependencies
@@ -23,7 +23,7 @@
       - environment
       - esphome
 
-- name: installation tasks for ESPHome
+- name: Installation tasks for ESPHome
   ansible.builtin.import_tasks: install_esphome.yml
   tags:
       - installation
@@ -40,4 +40,3 @@
   tags:
       - systemd
       - esphome
-

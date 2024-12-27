@@ -4,4 +4,4 @@
     path: "{{ esphome_conf_dir }}"
     owner: "{{ esphome_user }}"
     group: "{{ esphome_group }}"
-    recurse: yes
+    recurse: true

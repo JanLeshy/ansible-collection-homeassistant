@@ -12,8 +12,3 @@
     group: "{{ esphome_group }}"
     createhome: true
     system: true
-
-
-
-
-

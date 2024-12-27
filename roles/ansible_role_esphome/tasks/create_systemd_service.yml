@@ -6,12 +6,11 @@
     owner: root
     group: root
     mode: "0640"
-  notify: 
+  notify:
     - Start ESP Home
     - Restart ESP Home
 
 - name: Enable service esphome.service for automatic boot start, and not touch the state
   ansible.builtin.service:
     name: esphome.service
-    enabled: yes
-
+    enabled: true

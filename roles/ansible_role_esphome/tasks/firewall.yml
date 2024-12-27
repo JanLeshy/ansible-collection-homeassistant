@@ -1,15 +1,15 @@
 ---
-- name: check whether ufw status is active
-  shell: ufw status
+- name: Check whether ufw status is active
+  ansible.builtin.command: ufw status
   changed_when: false
   ignore_errors: true
   register: ufw_check
 
 - name: Allow Web UI in UFW
-  ufw: 
-    rule: allow 
+  community.general.ufw:
+    rule: allow
     port: "{{ esphome_port }}"
     proto: tcp
-  when: 
-  - "'inactive' not in ufw_check.stdout"
-  - ufw_check is undefined
+  when:
+    - "'inactive' not in ufw_check.stdout"
+    - ufw_check is undefined

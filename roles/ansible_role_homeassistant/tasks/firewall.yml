@@ -6,7 +6,7 @@
   register: ufw_check
 
 - name: Allow Web UI in UFW
-  ansible.builtin.ufw:
+  community.general.ufw:
     rule: allow
     port: "{{ ha_port }}"
     proto: tcp

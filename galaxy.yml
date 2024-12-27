@@ -14,6 +14,7 @@ description: A Collection to install and manage homeassistant and additional Sof
 license_file: LICENSE
 
 tags:
+  - application
   - homeassistant
   - automation
   - hass
@@ -36,4 +37,3 @@ homepage: https://github.com/janleshy/ansible-collection-homeassistant
 issues: https://github.com/janleshy/ansible-collection-homeassistant/issues
 
 build_ignore: []
-
