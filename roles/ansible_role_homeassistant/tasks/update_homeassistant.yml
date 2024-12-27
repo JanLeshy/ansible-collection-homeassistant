@@ -4,7 +4,7 @@
   changed_when: false
   notify: "Stop Home Assistant"
 
-- name: FLush Handlers
+- name: Flush Handlers
   ansible.builtin.meta: flush_handlers
 
 - name: Backup current installation and remove old installation, Backupfile stored in home directory
