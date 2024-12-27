@@ -29,7 +29,7 @@ ha_backup_delete_after_days: 7
 ha_backup_keepfiles: 3
 
 # default for the python installation
-ha_python_release: 3.12.2  # See https://www.python.org/downloads/source/
+ha_python_release: 3.13.1 # See https://www.python.org/downloads/source/
 ha_python_src_dir: /tmp
 ha_python_archive: Python-{{ ha_python_release }}.tgz
 ha_python_url: https://www.python.org/ftp/python/{{ ha_python_release }}/{{ ha_python_archive }}
