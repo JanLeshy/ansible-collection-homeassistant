@@ -20,7 +20,7 @@ galaxy_info:
     - monitoring
     - iot
     - energy
-    - rapsberry pi
+    - rapsberrypi
 
 
 dependencies: []
