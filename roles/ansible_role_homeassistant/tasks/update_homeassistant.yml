@@ -15,7 +15,13 @@
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
     format: gz
-    remove: true
+    remove: false
+  when: ha_python_update | bool
+
+- name: Remove old installation
+  ansible.builtin.file:
+    path: "{{ ha_conf_dir }}"
+    state: absent
   when: ha_python_update | bool
 
 - name: Install dependencies
@@ -29,7 +35,7 @@
       - wheel
       - appdirs
       - packaging
-      - aiohttp_cors    
+      - aiohttp_cors
     virtualenv: "{{ ha_conf_dir }}"
     virtualenv_site_packages: 1
     virtualenv_command: "{{ py_which_out }} -m venv"
