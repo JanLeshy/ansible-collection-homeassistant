@@ -26,5 +26,6 @@
       - liblapack3
       - liblapack-dev
       - libatlas-base-dev
-      - libsqlite3-dev    
+      - libsqlite3-dev
+      - libbz2-dev
     state: present
