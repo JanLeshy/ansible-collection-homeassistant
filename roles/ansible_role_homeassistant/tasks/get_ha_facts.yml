@@ -11,7 +11,7 @@
   when: ha_conf_dir_stat.stat.exists
 
 - name: Get python version from homeassistant virtuel environment
-  ansible.builtin.command: "{{ ha_conf_dir }}/bin/python3 -V"
+  ansible.builtin.shell: "{{ ha_conf_dir }}/bin/python3 -V | awk '{print $2}'"
   register: ha_current_used_python_version_stat
   changed_when: ha_current_used_python_version_stat.rc != 0
   when: ha_conf_dir_stat.stat.exists
@@ -52,15 +52,15 @@
     - name: Evaluation homeassistant python version fact
       ansible.builtin.debug:
         msg: [
-          "installed Homeassistant Python Version: ha_current_used_python_version_stat.stdout, desired Python Version: ha_python_release.
-          Python version will be updated/reinstalled"
+          "installed Homeassistant Python Version: {{ ha_current_used_python_version_stat.stdout }}, desired Python Version: {{ ha_python_release }}.
+          Python version will be updated"
         ]
-      when: ha_current_used_python_version_stat.stdout < ha_python_release and ha_conf_dir_stat.stat.exists
+      when: ha_current_used_python_version_stat.stdout is defined and ha_current_used_python_version_stat.stdout is version(ha_python_release, '<')
 
-    - name: Set ha_version_update to true
+    - name: Set ha_python_update to true
       ansible.builtin.set_fact:
         ha_python_update: true
-      when: ha_current_used_python_version_stat.stdout < ha_python_release and ha_conf_dir_stat.stat.exists
+      when: ha_current_used_python_version_stat.stdout is defined and ha_current_used_python_version_stat.stdout is version(ha_python_release, '<')
 
 - name: Log homeassistant facts
   ansible.builtin.debug:
