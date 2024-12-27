@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version Update 1.6.2
+
+fix: detach the remove function from archive order in own task, to prevent errors on execution
+chore: make ansible-lint happy fixing typos
+feat: update to python 3.13.1 as default python version
+feat: add libbz2-dev to requirements, Probably as you built python from source, you don't have bz2 headers.
+
 ## Version Update 1.6.1
 
 FIX: Handle error when using fqpn for backup file
