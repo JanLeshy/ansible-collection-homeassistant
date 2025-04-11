@@ -10,8 +10,9 @@
         ha_backup_cron: true
         ha_backup_delete_after_days: 7
         ha_backup_keepfiles: 3
-        ha_version: 2024.12.1
-        ha_python_release: 3.11.2
+        ha_version: 2025.3.1
+        ha_python_release: 3.13.0
+        ha_auto_update_patch_cron: true
 
     - name: Update only the python version
       ansible.builtin.include_role:
@@ -22,6 +23,7 @@
         ha_backup_keepfiles: 3
         ha_version: 2024.12.1
         ha_python_release: 3.12.0
+        ha_auto_update_patch_cron: true
 
     - name: Update homeassistant to latest version and python to default
       ansible.builtin.include_role:
@@ -32,3 +34,4 @@
         ha_backup_keepfiles: 3
         ha_version: 2024.12.1
         ha_python_release: 3.13.0
+        ha_auto_update_patch_cron: true
