@@ -1,0 +1,32 @@
+---
+- name: Copy auto_install_ha_patch.j2 to homeassistant home directory
+  ansible.builtin.template:
+    src: auto_install_ha_patch.j2
+    dest: "/home/{{ ha_user }}/.homeassistant/auto_install_ha_patch.sh"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    mode: "0744"
+
+- name: Create cron to auto update HA patch
+  ansible.builtin.cron:
+    name: "Create cron to auto update HA patch"
+    job: "/home/{{ ha_user }}/.homeassistant/auto_install_ha_patch.sh"
+    user: "{{ ha_user }}"
+    minute: "{{ ha_patch_cron_schedule.minute }}"
+    hour: "{{ ha_patch_cron_schedule.hour }}"
+    day: "{{ ha_patch_cron_schedule.day }}"
+    month: "{{ ha_patch_cron_schedule.month }}"
+    weekday: "{{ ha_patch_cron_schedule.weekday }}"
+
+- name: Allow HA User to manage HA Service
+  ansible.builtin.blockinfile:
+    path: /etc/sudoers.d/homeassistant
+    block: |
+      # Allow homeassistant user to manage the service
+      {{ ha_user }} ALL=(ALL) NOPASSWD: /bin/systemctl restart homeassistant.service
+      {{ ha_user }} ALL=(ALL) NOPASSWD: /bin/systemctl stop homeassistant.service
+      {{ ha_user }} ALL=(ALL) NOPASSWD: /bin/systemctl start homeassistant.service
+      {{ ha_user }} ALL=(ALL) NOPASSWD: /bin/systemctl status homeassistant.service
+    create: true
+    mode: "0440"
+    validate: "visudo -cf %s"

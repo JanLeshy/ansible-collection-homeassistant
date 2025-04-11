@@ -28,4 +28,5 @@
       - libatlas-base-dev
       - libsqlite3-dev
       - libbz2-dev
+      - wget
     state: present

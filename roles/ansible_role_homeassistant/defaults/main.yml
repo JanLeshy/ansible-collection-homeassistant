@@ -22,6 +22,9 @@ ha_check_delay: 25
 # create a cron job to delete backups
 ha_backup_cron: false
 
+# create a cron to auto install HA patch
+ha_auto_update_patch_cron: false
+
 # delete backup after given days
 ha_backup_delete_after_days: 7
 
@@ -43,3 +46,11 @@ ha_version_update: false
 
 # trigger for python update
 ha_python_update: false
+
+# Default cron schedule (runs at 5:00 AM every day)
+ha_patch_cron_schedule:
+  minute: "0"
+  hour: "5"
+  day: "*"
+  month: "*"
+  weekday: "*"

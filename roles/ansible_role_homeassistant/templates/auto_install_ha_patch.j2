@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Get current HA version
+CURRENT_VERSION=$({{ ha_conf_dir }}/bin/pip show homeassistant | grep Version | cut -d' ' -f2)
+MAJOR_MINOR=$(echo $CURRENT_VERSION | cut -d. -f1,2)
+
+echo "Current version: $CURRENT_VERSION"
+echo "Major.Minor version: $MAJOR_MINOR"
+
+# Get latest version from PyPI using wget instead of curl
+LATEST_VERSION=$(wget -qO- https://pypi.org/pypi/homeassistant/json | python3 -c "import sys, json; data=json.load(sys.stdin); versions=[v for v in data['releases'].keys() if v.startswith('$MAJOR_MINOR.')]; print(sorted(versions)[-1] if versions else '')")
+
+if [ -z "$LATEST_VERSION" ]; then
+    echo "Error: Could not determine latest patch version"
+    exit 1
+fi
+
+echo "Latest available version: $LATEST_VERSION"
+
+if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+    echo "Updating to $LATEST_VERSION..."
+    {{ ha_conf_dir }}/bin/pip install --upgrade "homeassistant==$LATEST_VERSION"
+    echo "Restarting Home Assistant..."
+    /usr/bin/sudo /bin/systemctl restart homeassistant.service
+else
+    echo "Already at latest patch version"
+fi
+exit 0

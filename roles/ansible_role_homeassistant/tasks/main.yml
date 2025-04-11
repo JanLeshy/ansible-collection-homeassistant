@@ -68,6 +68,13 @@
       - cron
   when: ha_backup_cron | bool
 
+- name: Create cron to auto update HA patch version
+  ansible.builtin.import_tasks: create_cron_to_auto_install_ha_patch.yml
+  tags:
+      - homeassistant
+      - cron
+  when: ha_auto_update_patch_cron | bool
+
 - name: Update Homeassistant
   ansible.builtin.import_tasks: update_homeassistant.yml
   tags:
