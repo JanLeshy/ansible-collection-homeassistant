@@ -4,8 +4,8 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: docker-debian12-ansible
-    image: geerlingguy/docker-debian12-ansible
+  - name: docker-debian12-ansible-python313
+    image: janleshy/debian12-ansible-python313:latest
     pre_build_image: true
     privileged: true
     command: /lib/systemd/systemd
@@ -18,6 +18,8 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: "/home/jan/projects/private/ansible_projects/collections/ansible_collections/janleshy/ansible-collection-homeassistant/ansible-collection-homeassistant/roles"
 
 verifier:
   name: ansible
