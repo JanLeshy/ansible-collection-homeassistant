@@ -1,8 +1,23 @@
 ---
+- name: Check if homeassistant group exists
+  ansible.builtin.getent:
+    database: group
+    key: "{{ ha_group }}"
+  register: ha_group_exists
+  ignore_errors: true
+
 - name: Create Groups homeassistant
   ansible.builtin.group:
     name: "{{ ha_group }}"
     system: true
+  when: ha_group_exists.failed is defined and ha_group_exists.failed
+
+- name: Check if homeassistant user exists
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ ha_user }}"
+  register: ha_user_exists
+  ignore_errors: true
 
 - name: Create user and add to group
   ansible.builtin.user:
@@ -11,6 +26,7 @@
     comment: "Home Assistant"
     createhome: true
     system: true
+  when: ha_user_exists.failed is defined and ha_user_exists.failed
 
 - name: Create additional dialout,gpio,i2c Groups
   ansible.builtin.group:

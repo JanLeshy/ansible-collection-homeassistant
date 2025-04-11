@@ -1,11 +1,20 @@
 ---
-- name: Change ownership of homeassistant directories to {{ ha_user }}
-  ansible.builtin.file:
+- name: Check directory ownership
+  ansible.builtin.stat:
     path: "{{ item }}"
-    owner: "{{ ha_user }}"
-    group: "{{ ha_group }}"
-    recurse: true
+  register: dir_ownership
   with_items:
     - "{{ ha_conf_dir }}"
     - "{{ ha_work_dir }}"
     - "{{ ha_log_dir }}"
+
+- name: Change ownership of homeassistant directories to {{ ha_user }}
+  ansible.builtin.file:
+    path: "{{ item.item }}"
+    owner: "{{ ha_user }}"
+    group: "{{ ha_group }}"
+    recurse: true
+  with_items: "{{ dir_ownership.results }}"
+  when: >
+    item.stat.pw_name != ha_user or
+    item.stat.gr_name != ha_group

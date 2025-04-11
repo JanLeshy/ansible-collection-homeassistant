@@ -1,13 +1,24 @@
 ---
+- name: Check directory permissions
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  register: dir_stat
+  with_items:
+    - "{{ ha_conf_dir }}"
+    - "{{ ha_work_dir }}"
+    - "{{ ha_log_dir }}"
+
 - name: Create directories
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item.item }}"
     state: directory
     mode: "0775"
     owner: "{{ ha_user }}"
     group: "{{ ha_group }}"
     recurse: true
-  with_items:
-    - "{{ ha_conf_dir }}"
-    - "{{ ha_work_dir }}"
-    - "{{ ha_log_dir }}"
+  with_items: "{{ dir_stat.results }}"
+  when: >
+    not item.stat.exists or
+    item.stat.mode != "0775" or
+    item.stat.pw_name != ha_user or
+    item.stat.gr_name != ha_group
