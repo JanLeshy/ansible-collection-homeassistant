@@ -2,3 +2,4 @@
 ###############################
 janleshy-homeassistant-*.tar.gz
 *.tar
+ansible-playbook.log
