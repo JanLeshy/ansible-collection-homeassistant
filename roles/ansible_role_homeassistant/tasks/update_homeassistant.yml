@@ -39,7 +39,7 @@
     virtualenv: "{{ ha_conf_dir }}"
     virtualenv_site_packages: 1
     virtualenv_command: "{{ py_which_out }} -m venv"
-  when: ha_python_update | bool
+  when: ha_python_update | bool or ha_version_update | bool
 
 - name: Update Homeassistant in virtual environment to "{{ ha_version }}"
   ansible.builtin.pip:
